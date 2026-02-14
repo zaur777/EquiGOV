@@ -1,0 +1,7 @@
+{
+  "name": "EquiGov: Shareholder Management & Governance Platform",
+  "description": "A comprehensive platform for corporate governance, shareholder voting, and meeting orchestration with MyGovID integration.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
