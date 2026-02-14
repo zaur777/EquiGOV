@@ -1,8 +1,10 @@
 
 import React from 'react';
 import { Terminal, Database, Shield, Server, Workflow, CreditCard, Clock, Fingerprint } from 'lucide-react';
+import { Language } from '../types';
 
-export const TechnicalBlueprint: React.FC = () => {
+// Added language prop to TechnicalBlueprint to satisfy App.tsx requirements
+export const TechnicalBlueprint = ({ language }: { language: Language }) => {
   return (
     <div className="space-y-10 animate-in fade-in duration-700 max-w-5xl mx-auto pb-20">
       <div className="text-center space-y-4">

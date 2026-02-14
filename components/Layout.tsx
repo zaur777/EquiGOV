@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { UserRole } from '../types';
+import { UserRole, Language } from '../types';
+import { translations } from '../i18n/translations';
 import { 
   LayoutDashboard, 
   Users, 
@@ -14,7 +15,8 @@ import {
   ChevronRight,
   UserCircle,
   Building2,
-  Database
+  Database,
+  Globe
 } from 'lucide-react';
 
 interface SidebarItemProps {
@@ -47,6 +49,8 @@ interface LayoutProps {
   userName: string;
   onRoleChange: (role: UserRole) => void;
   onLogout: () => void;
+  language: Language;
+  setLanguage: (lang: Language) => void;
 }
 
 export const Layout: React.FC<LayoutProps> = ({ 
@@ -56,8 +60,12 @@ export const Layout: React.FC<LayoutProps> = ({
   userRole, 
   userName, 
   onRoleChange,
-  onLogout
+  onLogout,
+  language,
+  setLanguage
 }) => {
+  const t = translations[language];
+
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden">
       {/* Sidebar */}
@@ -75,7 +83,7 @@ export const Layout: React.FC<LayoutProps> = ({
           
           <SidebarItem 
             icon={<LayoutDashboard size={20} />} 
-            label={userRole === UserRole.ADMIN ? "Global Monitor" : "Dashboard"} 
+            label={userRole === UserRole.ADMIN ? t.nav.monitor : t.nav.dashboard} 
             active={activeView === 'dashboard'} 
             onClick={() => setActiveView('dashboard')} 
           />
@@ -84,13 +92,13 @@ export const Layout: React.FC<LayoutProps> = ({
             <>
               <SidebarItem 
                 icon={<Building2 size={20} />} 
-                label="Client Companies" 
+                label={t.nav.clients} 
                 active={activeView === 'clients'} 
                 onClick={() => setActiveView('dashboard')} 
               />
               <SidebarItem 
                 icon={<Database size={20} />} 
-                label="Compliance Logs" 
+                label={t.nav.logs} 
                 active={activeView === 'logs'} 
                 onClick={() => setActiveView('dashboard')} 
               />
@@ -101,19 +109,19 @@ export const Layout: React.FC<LayoutProps> = ({
             <>
               <SidebarItem 
                 icon={<Users size={20} />} 
-                label="Shareholders" 
+                label={t.nav.shareholders} 
                 active={activeView === 'shareholders'} 
                 onClick={() => setActiveView('shareholders')} 
               />
               <SidebarItem 
                 icon={<Calendar size={20} />} 
-                label="Meetings" 
+                label={t.nav.meetings} 
                 active={activeView === 'meetings'} 
                 onClick={() => setActiveView('meetings')} 
               />
               <SidebarItem 
                 icon={<FileText size={20} />} 
-                label="Reports" 
+                label={t.nav.reports} 
                 active={activeView === 'reports'} 
                 onClick={() => setActiveView('reports')} 
               />
@@ -124,13 +132,13 @@ export const Layout: React.FC<LayoutProps> = ({
             <>
               <SidebarItem 
                 icon={<Vote size={20} />} 
-                label="My Votes" 
+                label={t.nav.voting} 
                 active={activeView === 'voting'} 
                 onClick={() => setActiveView('voting')} 
               />
               <SidebarItem 
                 icon={<FileText size={20} />} 
-                label="Documents" 
+                label={t.nav.docs} 
                 active={activeView === 'documents'} 
                 onClick={() => setActiveView('documents')} 
               />
@@ -141,13 +149,13 @@ export const Layout: React.FC<LayoutProps> = ({
             <p className="px-4 py-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Reference</p>
             <SidebarItem 
               icon={<BookOpen size={20} />} 
-              label="Blueprint" 
+              label={t.nav.blueprint} 
               active={activeView === 'blueprint'} 
               onClick={() => setActiveView('blueprint')} 
             />
             <SidebarItem 
               icon={<Settings size={20} />} 
-              label="Settings" 
+              label={t.nav.settings} 
               active={activeView === 'settings'} 
               onClick={() => setActiveView('settings')} 
             />
@@ -169,7 +177,7 @@ export const Layout: React.FC<LayoutProps> = ({
             className="w-full flex items-center gap-3 px-4 py-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors text-sm font-medium"
           >
             <LogOut size={18} />
-            Log out
+            {t.nav.logout}
           </button>
         </div>
       </aside>
@@ -177,12 +185,33 @@ export const Layout: React.FC<LayoutProps> = ({
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
         <header className="h-16 border-b border-slate-200 bg-white flex items-center justify-between px-8 sticky top-0 z-10">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="text-green-500" size={18} />
-            <span className="text-xs font-semibold text-slate-500 tracking-wide uppercase">
-              {userRole === UserRole.ADMIN ? "Secure Admin Session" : "Client Portal Active"}
-            </span>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="text-green-500" size={18} />
+              <span className="text-xs font-semibold text-slate-500 tracking-wide uppercase">
+                {userRole === UserRole.ADMIN ? "Secure Admin Session" : "Client Portal Active"}
+              </span>
+            </div>
+            
+            {/* Language Switcher */}
+            <div className="flex items-center gap-1 border-l pl-6 border-slate-100">
+              <Globe size={14} className="text-slate-400 mr-2" />
+              {(['AZ', 'TR', 'EN', 'RU'] as Language[]).map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => setLanguage(lang)}
+                  className={`px-2 py-1 rounded text-[10px] font-bold transition-all ${
+                    language === lang 
+                      ? 'bg-blue-600 text-white shadow-sm' 
+                      : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'
+                  }`}
+                >
+                  {lang}
+                </button>
+              ))}
+            </div>
           </div>
+
           <div className="flex items-center gap-4">
             <div className="relative group">
               <button className="flex items-center gap-2 text-xs font-bold text-blue-600 bg-blue-50 px-4 py-2 rounded-full hover:bg-blue-100 transition-colors border border-blue-100 uppercase tracking-tight shadow-sm">

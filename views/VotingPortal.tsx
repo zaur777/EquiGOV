@@ -1,10 +1,11 @@
 
 import React, { useState } from 'react';
 import { mockMeetings, mockResolutions, mockShareholders } from '../services/mockData';
-import { Vote, Resolution } from '../types';
+import { Vote, Resolution, Language } from '../types';
 import { Vote as VoteIcon, ShieldCheck, Fingerprint, Info, AlertCircle } from 'lucide-react';
 
-export const VotingPortal: React.FC = () => {
+// Added language prop to VotingPortal to satisfy App.tsx requirements
+export const VotingPortal = ({ language }: { language: Language }) => {
   const [votes, setVotes] = useState<Record<string, 'YES' | 'NO' | 'ABSTAIN'>>({});
   const [isSigning, setIsSigning] = useState(false);
   const [signed, setSigned] = useState(false);

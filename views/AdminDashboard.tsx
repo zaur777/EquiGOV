@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react';
 import { mockCompanies as initialCompanies, mockShareholders } from '../services/mockData';
-import { Company } from '../types';
+import { Company, Language } from '../types';
+import { translations } from '../i18n/translations';
 import { 
   Building2, 
   Users, 
@@ -16,10 +17,13 @@ import {
   ChevronRight
 } from 'lucide-react';
 
-export const AdminDashboard: React.FC = () => {
+// Updated AdminDashboard to standard component function for better type compatibility in App.tsx
+export const AdminDashboard = ({ language }: { language: Language }) => {
   const [companies, setCompanies] = useState<Company[]>(initialCompanies);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState<'companies' | 'pending' | 'shareholders'>('pending');
+
+  const t = translations[language];
 
   const filteredCompanies = companies.filter(c => 
     c.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -46,8 +50,8 @@ export const AdminDashboard: React.FC = () => {
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-3xl font-bold text-slate-800 tracking-tight">System Administration</h2>
-          <p className="text-slate-500">Platform Owner Console: Azerbaijan Registry Management.</p>
+          <h2 className="text-3xl font-bold text-slate-800 tracking-tight">{t.nav.monitor}</h2>
+          <p className="text-slate-500 mt-1">Platform Owner Console: Azerbaijan Registry Management.</p>
         </div>
         <div className="flex gap-4">
           <div className="bg-white p-4 rounded-2xl border border-slate-200 flex items-center gap-3 shadow-sm">
@@ -62,26 +66,26 @@ export const AdminDashboard: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-[32px] border border-slate-200 shadow-xl shadow-slate-200/50 overflow-hidden">
-        <div className="border-b border-slate-100 flex p-1.5 bg-slate-50/50">
+      <div className="bg-white rounded-[40px] border border-slate-200 shadow-xl shadow-slate-200/50 overflow-hidden">
+        <div className="border-b border-slate-100 flex p-2 bg-slate-50/50">
           <button 
             onClick={() => setActiveTab('pending')}
-            className={`flex-1 py-4 text-xs font-extrabold uppercase tracking-wider rounded-2xl transition-all relative ${activeTab === 'pending' ? 'bg-white text-blue-600 shadow-md' : 'text-slate-400 hover:text-slate-600'}`}
+            className={`flex-1 py-4 text-[10px] font-bold uppercase tracking-widest rounded-2xl transition-all relative ${activeTab === 'pending' ? 'bg-white text-blue-600 shadow-md' : 'text-slate-400 hover:text-slate-600'}`}
           >
             Awaiting Approval
             {pendingApprovals.length > 0 && <span className="absolute top-3 right-5 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white"></span>}
           </button>
           <button 
             onClick={() => setActiveTab('companies')}
-            className={`flex-1 py-4 text-xs font-extrabold uppercase tracking-wider rounded-2xl transition-all ${activeTab === 'companies' ? 'bg-white text-blue-600 shadow-md' : 'text-slate-400 hover:text-slate-600'}`}
+            className={`flex-1 py-4 text-[10px] font-bold uppercase tracking-widest rounded-2xl transition-all ${activeTab === 'companies' ? 'bg-white text-blue-600 shadow-md' : 'text-slate-400 hover:text-slate-600'}`}
           >
             Registered Clients
           </button>
           <button 
             onClick={() => setActiveTab('shareholders')}
-            className={`flex-1 py-4 text-xs font-extrabold uppercase tracking-wider rounded-2xl transition-all ${activeTab === 'shareholders' ? 'bg-white text-blue-600 shadow-md' : 'text-slate-400 hover:text-slate-600'}`}
+            className={`flex-1 py-4 text-[10px] font-bold uppercase tracking-widest rounded-2xl transition-all ${activeTab === 'shareholders' ? 'bg-white text-blue-600 shadow-md' : 'text-slate-400 hover:text-slate-600'}`}
           >
-            System-wide Registry
+            Global Registry
           </button>
         </div>
 
@@ -103,111 +107,54 @@ export const AdminDashboard: React.FC = () => {
         </div>
 
         <div className="overflow-x-auto bg-white">
-          {activeTab === 'companies' || activeTab === 'pending' ? (
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="bg-slate-50/50 text-slate-400 font-bold uppercase tracking-widest text-[10px]">
-                  <th className="px-8 py-5">Company Details</th>
-                  <th className="px-8 py-5">VÖEN / Reg Num</th>
-                  <th className="px-8 py-5">Onboarding Date</th>
-                  <th className="px-8 py-5 text-right">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {(activeTab === 'companies' ? filteredCompanies : pendingApprovals).map(company => (
-                  <tr key={company.id} className="hover:bg-slate-50 transition-colors group">
-                    <td className="px-8 py-6">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center font-bold text-blue-600 text-lg shadow-inner">
-                          {company.name.charAt(0)}
-                        </div>
-                        <div>
-                          <p className="font-bold text-slate-800 text-base">{company.name}</p>
-                          <div className="flex items-center gap-2 mt-1">
-                             <span className={`px-2 py-0.5 rounded-full text-[9px] font-black tracking-tighter uppercase border ${getStatusColor(company.onboardingStatus)}`}>
-                              {company.onboardingStatus}
-                            </span>
-                             <span className="text-xs text-slate-400 font-medium">{company.shareholderCount} Users</span>
-                          </div>
+          <table className="w-full text-left text-sm">
+            <thead>
+              <tr className="bg-slate-50/50 text-slate-400 font-bold uppercase tracking-widest text-[10px]">
+                <th className="px-8 py-5">Details</th>
+                <th className="px-8 py-5">Registration</th>
+                <th className="px-8 py-5">Date</th>
+                <th className="px-8 py-5 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {(activeTab === 'companies' ? filteredCompanies : pendingApprovals).map(company => (
+                <tr key={company.id} className="hover:bg-slate-50 transition-colors group">
+                  <td className="px-8 py-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center font-bold text-blue-600 text-lg shadow-inner">
+                        {company.name.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="font-bold text-slate-800 text-base">{company.name}</p>
+                        <div className="flex items-center gap-2 mt-1">
+                           <span className={`px-2 py-0.5 rounded-full text-[9px] font-black tracking-tighter uppercase border ${getStatusColor(company.onboardingStatus)}`}>
+                            {company.onboardingStatus}
+                          </span>
+                           <span className="text-xs text-slate-400 font-medium">{company.shareholderCount} Users</span>
                         </div>
                       </div>
-                    </td>
-                    <td className="px-8 py-6 text-slate-600 font-mono text-xs font-bold">{company.registrationNumber}</td>
-                    <td className="px-8 py-6 text-slate-500 text-xs font-medium">{new Date(company.joinedAt).toLocaleDateString()}</td>
-                    <td className="px-8 py-6 text-right">
-                      {company.onboardingStatus === 'PENDING' ? (
-                        <div className="flex justify-end gap-3">
-                          <button 
-                            onClick={() => handleApprove(company.id)}
-                            className="bg-blue-600 text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-blue-700 shadow-lg shadow-blue-100 flex items-center gap-2"
-                          >
-                            <CheckCircle size={14} /> Approve Registration
-                          </button>
-                          <button className="bg-white border border-red-100 text-red-500 px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-red-50">
-                            Reject
-                          </button>
-                        </div>
-                      ) : (
-                        <button className="p-3 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-2xl transition-all">
-                          <ExternalLink size={20} />
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-                {activeTab === 'pending' && pendingApprovals.length === 0 && (
-                  <tr>
-                    <td colSpan={4} className="py-20 text-center">
-                      <div className="flex flex-col items-center gap-3">
-                        <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-slate-300">
-                          <CheckCircle size={32} />
-                        </div>
-                        <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">Queue Clear: No Pending Registrations</p>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          ) : (
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="bg-slate-50/50 text-slate-400 font-bold uppercase tracking-widest text-[10px]">
-                  <th className="px-8 py-5">Shareholder Identity</th>
-                  <th className="px-8 py-5">Primary Link</th>
-                  <th className="px-8 py-5 text-center">MyGovID Status</th>
-                  <th className="px-8 py-5 text-right">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {mockShareholders.map(s => (
-                  <tr key={s.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-8 py-6">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-xs font-black text-slate-400 border border-white ring-2 ring-slate-50">
-                          {s.name.charAt(0)}
-                        </div>
-                        <p className="font-bold text-slate-700">{s.name}</p>
-                      </div>
-                    </td>
-                    <td className="px-8 py-6 text-xs font-bold text-slate-400 uppercase tracking-tight">
-                      Azerbaijan Tech Corp
-                    </td>
-                    <td className="px-8 py-6 text-center">
-                      <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter ${s.verificationStatus === 'VERIFIED' ? 'text-green-600 bg-green-50' : 'text-slate-400 bg-slate-50'}`}>
-                        {s.verificationStatus}
-                      </span>
-                    </td>
-                    <td className="px-8 py-6 text-right">
-                      <button className="p-2.5 text-slate-400 hover:text-slate-600 hover:bg-white rounded-xl border border-transparent hover:border-slate-100 transition-all">
-                        <MoreVertical size={18} />
+                    </div>
+                  </td>
+                  <td className="px-8 py-6 text-slate-600 font-mono text-xs font-bold">{company.registrationNumber}</td>
+                  <td className="px-8 py-6 text-slate-500 text-xs font-medium">{new Date(company.joinedAt).toLocaleDateString()}</td>
+                  <td className="px-8 py-6 text-right">
+                    {company.onboardingStatus === 'PENDING' ? (
+                      <button 
+                        onClick={() => handleApprove(company.id)}
+                        className="bg-blue-600 text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-blue-700 shadow-lg shadow-blue-100 flex items-center gap-2"
+                      >
+                        <CheckCircle size={14} /> Approve
                       </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+                    ) : (
+                      <button className="p-3 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-2xl transition-all">
+                        <ExternalLink size={20} />
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

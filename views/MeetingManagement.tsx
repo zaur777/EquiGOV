@@ -1,10 +1,12 @@
 
 import React, { useState } from 'react';
 import { mockMeetings } from '../services/mockData';
+import { Language } from '../types';
 // Added missing ShieldCheck import from lucide-react
 import { Calendar, Video, Bell, Users, Clock, ExternalLink, MailCheck, MessageSquareMore, ShieldCheck } from 'lucide-react';
 
-export const MeetingManagement: React.FC = () => {
+// Added language prop to MeetingManagement to satisfy App.tsx requirements
+export const MeetingManagement = ({ language }: { language: Language }) => {
   const [triggerSimulated, setTriggerSimulated] = useState(false);
 
   const handleSimulateTrigger = () => {

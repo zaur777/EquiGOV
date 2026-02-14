@@ -8,18 +8,21 @@ import { MeetingManagement } from './views/MeetingManagement';
 import { TechnicalBlueprint } from './views/TechnicalBlueprint';
 import { LandingPage } from './views/LandingPage';
 import { VotingPortal } from './views/VotingPortal';
-import { UserRole } from './types';
+import { UserRole, Language } from './types';
 import { mockCurrentUser } from './services/mockData';
-// Added missing CreditCard import from lucide-react to fix the 'Cannot find name' error.
+import { translations } from './i18n/translations';
 import { CreditCard } from 'lucide-react';
 
 const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeView, setActiveView] = useState('dashboard');
+  const [language, setLanguage] = useState<Language>('AZ');
   const [currentUser, setCurrentUser] = useState({
     ...mockCurrentUser,
     role: UserRole.ADMIN 
   });
+
+  const t = translations[language];
 
   const handleLogin = (role: UserRole) => {
     setCurrentUser(prev => ({ ...prev, role }));
@@ -40,44 +43,44 @@ const App: React.FC = () => {
     if (currentUser.role === UserRole.ADMIN) {
       switch (activeView) {
         case 'dashboard':
-          return <AdminDashboard />;
+          return <AdminDashboard language={language} />;
         case 'shareholders':
-          return <ShareholderManagement />;
+          return <ShareholderManagement language={language} />;
         case 'meetings':
-          return <MeetingManagement />;
+          return <MeetingManagement language={language} />;
         case 'blueprint':
-          return <TechnicalBlueprint />;
+          return <TechnicalBlueprint language={language} />;
         case 'settings':
-          return <SystemSettingsView />;
+          return <SystemSettingsView language={language} />;
         default:
-          return <AdminDashboard />;
+          return <AdminDashboard language={language} />;
       }
     }
 
     switch (activeView) {
       case 'dashboard':
-        return <Dashboard role={currentUser.role} />;
+        return <Dashboard role={currentUser.role} language={language} />;
       case 'shareholders':
-        return <ShareholderManagement />;
+        return <ShareholderManagement language={language} />;
       case 'meetings':
-        return <MeetingManagement />;
+        return <MeetingManagement language={language} />;
       case 'blueprint':
-        return <TechnicalBlueprint />;
+        return <TechnicalBlueprint language={language} />;
       case 'reports':
-        return <PlaceholderView title="Annual Reports" icon="📂" />;
+        return <PlaceholderView title={t.nav.reports} icon="📂" />;
       case 'voting':
-        return <VotingPortal />;
+        return <VotingPortal language={language} />;
       case 'documents':
-        return <PlaceholderView title="Documents" icon="📄" />;
+        return <PlaceholderView title={t.nav.docs} icon="📄" />;
       case 'settings':
-        return <SettingsView />;
+        return <SettingsView language={language} />;
       default:
-        return <Dashboard role={currentUser.role} />;
+        return <Dashboard role={currentUser.role} language={language} />;
     }
   };
 
   if (!isLoggedIn) {
-    return <LandingPage onLogin={handleLogin} />;
+    return <LandingPage onLogin={handleLogin} language={language} setLanguage={setLanguage} />;
   }
 
   return (
@@ -88,6 +91,8 @@ const App: React.FC = () => {
       userName={currentUser.name}
       onRoleChange={handleRoleChange}
       onLogout={handleLogout}
+      language={language}
+      setLanguage={setLanguage}
     >
       {renderView()}
     </Layout>
@@ -101,9 +106,9 @@ const PlaceholderView: React.FC<{title: string, icon: string}> = ({title, icon})
   </div>
 );
 
-const SettingsView: React.FC = () => (
+const SettingsView: React.FC<{language: Language}> = ({language}) => (
   <div className="bg-white p-8 rounded-2xl border border-slate-200">
-    <h2 className="text-2xl font-bold mb-6 text-slate-800">Client Settings</h2>
+    <h2 className="text-2xl font-bold mb-6 text-slate-800">{translations[language].nav.settings}</h2>
     <div className="space-y-6">
        <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
          <div>
@@ -116,9 +121,9 @@ const SettingsView: React.FC = () => (
   </div>
 );
 
-const SystemSettingsView: React.FC = () => (
+const SystemSettingsView: React.FC<{language: Language}> = ({language}) => (
   <div className="bg-white p-8 rounded-2xl border border-slate-200">
-    <h2 className="text-2xl font-bold mb-6 text-slate-800">Platform Settings (Owner)</h2>
+    <h2 className="text-2xl font-bold mb-6 text-slate-800">{translations[language].nav.settings} (Owner)</h2>
     <div className="space-y-8">
        <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200">
           <h4 className="font-bold text-slate-700 mb-4 flex items-center gap-2">

@@ -1,10 +1,11 @@
 
 import React, { useState } from 'react';
 import { mockShareholders as initialShareholders } from '../services/mockData';
-import { Shareholder, VerificationStatus } from '../types';
+import { Shareholder, VerificationStatus, Language } from '../types';
 import { Upload, FileDown, Search, Plus, Filter, Mail, MessageSquare, ShieldCheck, ShieldAlert, ShieldEllipsis, RefreshCcw } from 'lucide-react';
 
-export const ShareholderManagement: React.FC = () => {
+// Added language prop to ShareholderManagement to satisfy App.tsx requirements
+export const ShareholderManagement = ({ language }: { language: Language }) => {
   const [shareholders, setShareholders] = useState<Shareholder[]>(initialShareholders);
   const [searchTerm, setSearchTerm] = useState('');
 

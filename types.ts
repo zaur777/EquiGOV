@@ -5,6 +5,8 @@ export enum UserRole {
   SHAREHOLDER = 'SHAREHOLDER'
 }
 
+export type Language = 'AZ' | 'TR' | 'EN' | 'RU';
+
 export type VerificationStatus = 'VERIFIED' | 'PENDING' | 'FAILED' | 'UNVERIFIED';
 
 export interface User {
