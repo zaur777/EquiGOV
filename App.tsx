@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout } from './components/Layout';
 import { Dashboard } from './views/Dashboard';
 import { AdminDashboard } from './views/AdminDashboard';
@@ -9,6 +9,7 @@ import { TechnicalBlueprint } from './views/TechnicalBlueprint';
 import { LandingPage } from './views/LandingPage';
 import { VotingPortal } from './views/VotingPortal';
 import { EmissionManagement } from './views/EmissionManagement';
+import { AdminLoginPage } from './views/AdminLoginPage';
 import { UserRole, Language } from './types';
 import { mockCurrentUser } from './services/mockData';
 import { translations } from './i18n/translations';
@@ -20,8 +21,17 @@ const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>('AZ');
   const [currentUser, setCurrentUser] = useState({
     ...mockCurrentUser,
-    role: UserRole.ADMIN 
+    role: UserRole.COMPANY // Default role after login if not specified
   });
+
+  // Simple route detection
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
+  useEffect(() => {
+    const handlePopState = () => setCurrentPath(window.location.pathname);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const t = translations[language];
 
@@ -38,6 +48,11 @@ const App: React.FC = () => {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    // If we were admin, redirect to public root to be safe
+    if (currentUser.role === UserRole.ADMIN) {
+      window.history.pushState({}, '', '/');
+      setCurrentPath('/');
+    }
   };
 
   const renderView = () => {
@@ -83,6 +98,9 @@ const App: React.FC = () => {
   };
 
   if (!isLoggedIn) {
+    if (currentPath === '/admin') {
+      return <AdminLoginPage onLogin={handleLogin} language={language} />;
+    }
     return <LandingPage onLogin={handleLogin} language={language} setLanguage={setLanguage} />;
   }
 

@@ -25,11 +25,13 @@ export const translations: Record<Language, any> = {
       getStarted: "İndi Başlayın",
       demo: "Demoya Bax",
       signIn: "Giriş",
-      register: "Şirkəti Qeydiyyatdan Keçir"
+      register: "Qeydiyyat"
     },
     auth: {
       title: "Portala Giriş",
+      regTitle: "Platformaya Qoşulun",
       desc: "İş sahəsinə daxil olmaq üçün rolunuzu seçin.",
+      regDesc: "Qeydiyyatdan keçmək üçün istifadəçi növünü seçin.",
       admin: "Platforma Sahibi",
       adminSub: "Sistem Monitorinqi və Təsdiqlər",
       company: "Korporativ Müştəri",
@@ -84,11 +86,13 @@ export const translations: Record<Language, any> = {
       getStarted: "Hemen Başlayın",
       demo: "Demoyu İzle",
       signIn: "Giriş Yap",
-      register: "Şirketi Kaydet"
+      register: "Kayıt Ol"
     },
     auth: {
       title: "Portala Eriş",
+      regTitle: "Platforma Katılın",
       desc: "Çalışma alanına erişmek için rolünüzü seçin.",
+      regDesc: "Kayıt olmak için kullanıcı tipini seçin.",
       admin: "Platform Sahibi",
       adminSub: "Sistem İzleme ve Onaylar",
       company: "Kurumsal Müşteri",
@@ -143,11 +147,13 @@ export const translations: Record<Language, any> = {
       getStarted: "Get Started Now",
       demo: "Watch Demo",
       signIn: "Sign In",
-      register: "Register Company"
+      register: "Register"
     },
     auth: {
       title: "Access Portal",
+      regTitle: "Join the Platform",
       desc: "Select your role to access the workspace.",
+      regDesc: "Select user type to start registration.",
       admin: "Platform Owner",
       adminSub: "System Monitoring & Approvals",
       company: "Corporate Client",
@@ -202,11 +208,13 @@ export const translations: Record<Language, any> = {
       getStarted: "Начать сейчас",
       demo: "Смотреть демо",
       signIn: "Войти",
-      register: "Регистрация компании"
+      register: "Регистрация"
     },
     auth: {
       title: "Доступ к порталу",
+      regTitle: "Присоединиться к платформе",
       desc: "Выберите свою роль для доступа в рабочую область.",
+      regDesc: "Выберите тип пользователя для регистрации.",
       admin: "Владелец платформы",
       adminSub: "Мониторинг системы и одобрения",
       company: "Корпоративный клиент",
