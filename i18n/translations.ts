@@ -15,11 +15,12 @@ export const translations: Record<Language, any> = {
       docs: "Sənədlər",
       blueprint: "Texniki Plan",
       settings: "Tənzimləmələr",
-      logout: "Çıxış"
+      logout: "Çıxış",
+      emissions: "Emissiya"
     },
     hero: {
       tag: "3 AY PULSUZ İSTİFADƏ",
-      title: "Korporativ İdarəetmə Yenidən Təsəvvür Edildi",
+      title: "Korporativ idarəetmədə yenilik",
       desc: "Azərbaycan qanunvericiliyinə uyğun avtomatlaşdırılmış səhmdar idarəetməsi, təhlükəsiz e-səsvermə və iclasların təşkili.",
       getStarted: "İndi Başlayın",
       demo: "Demoya Bax",
@@ -46,6 +47,18 @@ export const translations: Record<Language, any> = {
       trial: "Sınaq",
       premium: "Premium",
       pay: "Fakturanı Ödə"
+    },
+    emissions: {
+      title: "Qiymətli Kağızların Emissiyası",
+      newIssue: "Yeni Emissiya",
+      stock: "Səhm",
+      bond: "İstiqraz",
+      parPrice: "Nominal Qiymət",
+      totalAmount: "Ümumi Həcm",
+      announce: "Elan Et",
+      notify: "Səhmdarları Məlumatlandır",
+      rights: "Üstünlük Hüququ",
+      desc: "Yeni səhm və ya istiqraz buraxılışı elan edin və səhmdarların nominal qiymətlə almaq hüququnu təmin edin."
     }
   },
   TR: {
@@ -61,7 +74,8 @@ export const translations: Record<Language, any> = {
       docs: "Belgeler",
       blueprint: "Teknik Plan",
       settings: "Ayarlar",
-      logout: "Çıkış Yap"
+      logout: "Çıkış Yap",
+      emissions: "Emisyon"
     },
     hero: {
       tag: "3 AY ÜCRETSİZ DENEME",
@@ -92,6 +106,18 @@ export const translations: Record<Language, any> = {
       trial: "Deneme",
       premium: "Premium",
       pay: "Faturayı Öde"
+    },
+    emissions: {
+      title: "Menkul Kıymet İhracı",
+      newIssue: "Yeni Emisyon",
+      stock: "Hisse Senedi",
+      bond: "Tahvil",
+      parPrice: "Nominal Fiyat",
+      totalAmount: "Toplam Hacim",
+      announce: "Duyur",
+      notify: "Hissedarları Bilgilendir",
+      rights: "Rüçhan Hakkı",
+      desc: "Yeni hisse veya tahvil ihracı duyurun ve hissedarların nominal fiyattan alma hakkını sağlayın."
     }
   },
   EN: {
@@ -107,7 +133,8 @@ export const translations: Record<Language, any> = {
       docs: "Documents",
       blueprint: "Blueprint",
       settings: "Settings",
-      logout: "Log out"
+      logout: "Log out",
+      emissions: "Emissions"
     },
     hero: {
       tag: "3 MONTHS FREE TRIAL",
@@ -138,6 +165,18 @@ export const translations: Record<Language, any> = {
       trial: "Trial",
       premium: "Premium",
       pay: "Pay Invoice"
+    },
+    emissions: {
+      title: "Securities Emission",
+      newIssue: "New Issue",
+      stock: "Stock",
+      bond: "Bond",
+      parPrice: "Par Price",
+      totalAmount: "Total Amount",
+      announce: "Announce",
+      notify: "Notify Shareholders",
+      rights: "Pre-emptive Rights",
+      desc: "Announce new share or bond issues and allow shareholders to purchase at nominal price."
     }
   },
   RU: {
@@ -153,7 +192,8 @@ export const translations: Record<Language, any> = {
       docs: "Документы",
       blueprint: "Техплан",
       settings: "Настройки",
-      logout: "Выйти"
+      logout: "Выйти",
+      emissions: "Эмиссия"
     },
     hero: {
       tag: "3 МЕСЯЦА БЕСПЛАТНО",
@@ -184,6 +224,18 @@ export const translations: Record<Language, any> = {
       trial: "Пробный",
       premium: "Премиум",
       pay: "Оплатить счет"
+    },
+    emissions: {
+      title: "Эмиссия ценных бумаг",
+      newIssue: "Новый выпуск",
+      stock: "Акция",
+      bond: "Облигация",
+      parPrice: "Номинальная цена",
+      totalAmount: "Общий объем",
+      announce: "Объявить",
+      notify: "Уведомить акционеров",
+      rights: "Преимущественное право",
+      desc: "Объявите о выпуске новых акций или облигаций и предоставьте акционерам право покупки по номиналу."
     }
   }
 };

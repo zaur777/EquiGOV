@@ -8,6 +8,7 @@ import { MeetingManagement } from './views/MeetingManagement';
 import { TechnicalBlueprint } from './views/TechnicalBlueprint';
 import { LandingPage } from './views/LandingPage';
 import { VotingPortal } from './views/VotingPortal';
+import { EmissionManagement } from './views/EmissionManagement';
 import { UserRole, Language } from './types';
 import { mockCurrentUser } from './services/mockData';
 import { translations } from './i18n/translations';
@@ -64,6 +65,8 @@ const App: React.FC = () => {
         return <ShareholderManagement language={language} />;
       case 'meetings':
         return <MeetingManagement language={language} />;
+      case 'emissions':
+        return <EmissionManagement language={language} />;
       case 'blueprint':
         return <TechnicalBlueprint language={language} />;
       case 'reports':

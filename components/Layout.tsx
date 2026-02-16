@@ -16,7 +16,8 @@ import {
   UserCircle,
   Building2,
   Database,
-  Globe
+  Globe,
+  TrendingUp
 } from 'lucide-react';
 
 interface SidebarItemProps {
@@ -118,6 +119,12 @@ export const Layout: React.FC<LayoutProps> = ({
                 label={t.nav.meetings} 
                 active={activeView === 'meetings'} 
                 onClick={() => setActiveView('meetings')} 
+              />
+              <SidebarItem 
+                icon={<TrendingUp size={20} />} 
+                label={t.nav.emissions} 
+                active={activeView === 'emissions'} 
+                onClick={() => setActiveView('emissions')} 
               />
               <SidebarItem 
                 icon={<FileText size={20} />} 

@@ -1,5 +1,5 @@
 
-import { User, UserRole, Company, Meeting, Shareholder, Document, Resolution } from '../types';
+import { User, UserRole, Company, Meeting, Shareholder, Document, Resolution, Emission } from '../types';
 
 export const mockCurrentUser: User = {
   id: 'u-1',
@@ -86,4 +86,31 @@ export const mockMeetings: Meeting[] = [
 export const mockResolutions: Resolution[] = [
   { id: 'res-1', meetingId: 'm-1', title: 'Approve 2023 Financial Statements', description: 'Formal approval of audited financial reports.' },
   { id: 'res-2', meetingId: 'm-1', title: 'Elect Sarah Jenkins to Board', description: 'Appointment of independent director.' }
+];
+
+export const mockEmissions: Emission[] = [
+  {
+    id: 'e-1',
+    companyId: 'c-1',
+    type: 'STOCK',
+    totalAmount: 500000,
+    parPrice: 2.0,
+    currency: 'AZN',
+    status: 'ANNOUNCED',
+    title: 'Series B Common Stock Issue',
+    description: 'Capital increase for expansion into regional markets.',
+    createdAt: oneMonthAgo.toISOString()
+  },
+  {
+    id: 'e-2',
+    companyId: 'c-1',
+    type: 'BOND',
+    totalAmount: 1000000,
+    parPrice: 100.0,
+    currency: 'AZN',
+    status: 'CLOSED',
+    title: 'Corporate Green Bonds 2023',
+    description: 'Financing for sustainable infrastructure projects.',
+    createdAt: threeMonthsAgo.toISOString()
+  }
 ];

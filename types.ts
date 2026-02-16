@@ -77,3 +77,16 @@ export interface Resolution {
   title: string;
   description: string;
 }
+
+export interface Emission {
+  id: string;
+  companyId: string;
+  type: 'STOCK' | 'BOND';
+  totalAmount: number;
+  parPrice: number;
+  currency: string;
+  status: 'DRAFT' | 'ANNOUNCED' | 'ACTIVE' | 'CLOSED';
+  title: string;
+  description: string;
+  createdAt: string;
+}
