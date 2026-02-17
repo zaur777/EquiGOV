@@ -1,0 +1,24 @@
+# ==============================================================================
+# EquiGov Automated CI/CD (Cron-based)
+# ==============================================================================
+# Instructions for Ubuntu Server Deployment:
+#
+# 1. Ensure the project directory exists and you have permissions:
+#    sudo mkdir -p /home/ubuntu/equigov
+#    sudo chown -R ubuntu:ubuntu /home/ubuntu/equigov
+#
+# 2. Make the deployment script executable:
+#    chmod +x /home/ubuntu/equigov/deploy.sh
+#
+# 3. Create the log file with correct permissions:
+#    sudo touch /var/log/equigov-deploy.log
+#    sudo chown ubuntu:ubuntu /var/log/equigov-deploy.log
+#
+# 4. Open crontab editor:
+#    crontab -e
+#
+# 5. Add the following line to check for updates every 15 minutes:
+
+*/15 * * * * /bin/bash /home/ubuntu/equigov/deploy.sh >> /var/log/equigov-cron-error.log 2>&1
+
+# ==============================================================================

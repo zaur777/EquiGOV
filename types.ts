@@ -41,6 +41,14 @@ export interface Shareholder {
   billingStatus: 'PAID' | 'UNPAID';
 }
 
+export interface AgendaItem {
+  id: string;
+  title: string;
+  description: string;
+  assignee: string;
+  duration?: string; // e.g. "15 min"
+}
+
 export interface Meeting {
   id: string;
   companyId: string;
@@ -50,6 +58,7 @@ export interface Meeting {
   status: 'SCHEDULED' | 'LIVE' | 'COMPLETED';
   meetLink?: string;
   documents: Document[];
+  agenda?: AgendaItem[];
 }
 
 export interface Document {

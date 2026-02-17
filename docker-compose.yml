@@ -1,0 +1,25 @@
+services:
+  equigov-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: equigov_prod
+    ports:
+      - "80:80"
+    restart: always
+    environment:
+      - NODE_ENV=production
+    # Add volume if persistent storage for logs or certs is needed
+    # volumes:
+    #   - ./nginx/logs:/var/log/nginx
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

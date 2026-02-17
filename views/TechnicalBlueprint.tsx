@@ -1,9 +1,7 @@
-
 import React from 'react';
-import { Terminal, Database, Shield, Server, Workflow, CreditCard, Clock, Fingerprint } from 'lucide-react';
+import { Terminal, Database, Shield, Server, Workflow, CreditCard, Clock, Fingerprint, Box } from 'lucide-react';
 import { Language } from '../types';
 
-// Added language prop to TechnicalBlueprint to satisfy App.tsx requirements
 export const TechnicalBlueprint = ({ language }: { language: Language }) => {
   return (
     <div className="space-y-10 animate-in fade-in duration-700 max-w-5xl mx-auto pb-20">
@@ -15,7 +13,40 @@ export const TechnicalBlueprint = ({ language }: { language: Language }) => {
         <p className="text-slate-500 max-w-2xl mx-auto font-medium">Full-stack technical specification for Azerbaijan's first digital corporate governance platform.</p>
       </div>
 
-      {/* Schema Description */}
+      {/* DevOps & Deployment Section */}
+      <section className="bg-indigo-50 border border-indigo-100 rounded-[32px] p-10 shadow-sm">
+        <div className="flex items-center gap-3 mb-8">
+          <Box className="text-indigo-600" size={28} />
+          <h3 className="text-2xl font-bold text-slate-800">DevOps & Automated Deployment</h3>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-4">
+            <h4 className="text-sm font-bold text-indigo-700 uppercase tracking-widest">Containerization</h4>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              We use <b>Docker + Nginx Alpine</b> for a minimal attack surface. The environment is orchestrated via <b>Docker Compose</b>, allowing for seamless horizontal scaling if the registry grows.
+            </p>
+            <div className="bg-slate-900 rounded-xl p-4 text-[11px] font-mono text-indigo-300">
+              # docker-compose.yml snippet
+              equigov-app:
+                build: .
+                restart: always
+                ports: ["80:80"]
+            </div>
+          </div>
+          <div className="space-y-4">
+            <h4 className="text-sm font-bold text-indigo-700 uppercase tracking-widest">CI/CD Automation</h4>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              For high availability, we implement a <b>Cron-based auto-deployment</b> strategy on Ubuntu. Every 15 minutes, a specialized script pulls the latest authorized commits and performs a zero-downtime rebuild.
+            </p>
+            <ul className="text-xs text-slate-500 space-y-2 list-disc pl-4">
+              <li>Atomic git-pull synchronization</li>
+              <li>Docker image pruning post-build</li>
+              <li>Encrypted log rotation</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-white border border-slate-200 rounded-[32px] p-10 shadow-sm">
         <div className="flex items-center gap-3 mb-8">
           <Database className="text-blue-600" size={28} />
@@ -138,7 +169,7 @@ WHERE status = 'DRAFT'
           </div>
           <div className="p-8 bg-white border border-slate-200 rounded-[24px] shadow-sm">
             <h4 className="font-bold text-slate-700 mb-4 flex items-center gap-2">
-              <Shield className="text-green-600" size={18} />
+              <Shield size={18} className="text-green-600" />
               Digital Signatures
             </h4>
             <p className="text-sm text-slate-500 leading-relaxed">

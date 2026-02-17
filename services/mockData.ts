@@ -79,6 +79,11 @@ export const mockMeetings: Meeting[] = [
     documents: [
       { id: 'd-1', title: 'Annual Report 2023', url: '#', timestamp: '2024-01-15T10:00:00Z', type: 'ANNUAL_REPORT' },
       { id: 'd-2', title: 'Board Re-election Proposal', url: '#', timestamp: '2024-02-01T14:30:00Z', type: 'RESOLUTION' }
+    ],
+    agenda: [
+      { id: 'a-1', title: 'Welcome and Opening Remarks', description: 'Formal opening of the meeting and quorum check.', assignee: 'Chairman' },
+      { id: 'a-2', title: 'Financial Review Q4 2023', description: 'Presentation of audited financial results for the previous quarter.', assignee: 'CFO' },
+      { id: 'a-3', title: 'Board Re-election Vote', description: 'Shareholders vote on the proposed board member appointments.', assignee: 'Legal Counsel' }
     ]
   }
 ];
