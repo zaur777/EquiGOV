@@ -13,7 +13,7 @@
 set -e # Exit on any error
 
 # --- Configuration ---
-REPO_URL="https://github.com/zaur777/Shareholder-Manage-Platform.git" # Replace with actual repo URL
+REPO_URL="https://github.com/zaur777/EquiGOV.git" # Replace with actual repo URL
 PROJECT_DIR="/home/ubuntu/equigov"
 LOG_FILE="/var/log/equigov-deploy.log"
 TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
