@@ -35,6 +35,32 @@ export const ShareholderManagement = ({ language }: { language: Language }) => {
     }, 2000);
   };
 
+  const bulkVerify = () => {
+    const toVerify = shareholders.filter(s => 
+      s.verificationStatus === 'UNVERIFIED' || s.verificationStatus === 'FAILED'
+    );
+    
+    if (toVerify.length === 0) return;
+
+    const idsToVerify = toVerify.map(s => s.id);
+
+    setShareholders(prev => prev.map(s => 
+      idsToVerify.includes(s.id) 
+        ? { ...s, verificationStatus: 'PENDING' as VerificationStatus } 
+        : s
+    ));
+
+    setTimeout(() => {
+      setShareholders(prev => prev.map(s => {
+        if (idsToVerify.includes(s.id)) {
+          const success = Math.random() > 0.2;
+          return { ...s, verificationStatus: (success ? 'VERIFIED' : 'FAILED') as VerificationStatus };
+        }
+        return s;
+      }));
+    }, 2000);
+  };
+
   const getStatusBadge = (status: VerificationStatus) => {
     switch (status) {
       case 'VERIFIED':
@@ -80,6 +106,13 @@ export const ShareholderManagement = ({ language }: { language: Language }) => {
           <button className="flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-50 transition-all shadow-sm">
             <FileDown size={18} />
             Export CSV
+          </button>
+          <button 
+            onClick={bulkVerify}
+            className="flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-50 transition-all shadow-sm"
+          >
+            <ShieldCheck size={18} className="text-blue-600" />
+            Bulk Verify
           </button>
           <button className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-blue-700 transition-all shadow-md">
             <Plus size={18} />
